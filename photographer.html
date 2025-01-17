@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="css/style.css" rel="stylesheet" type="text/css" />
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/png" href="assets/favicon.png" />
+        <link
+            href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
+            rel="stylesheet"
+        />
+        <title>Fisheye - photographe</title>
+    </head>
+    <body>
+        <header>
+            <img src="assets/images/logo.png" class="logo" />
+        </header>
+        <main id="main">
+            <section class="photograph-header"></section>
+            <form class="form-select">
+                <label for="select" class="label-select">Trier par</label>
+                <div class="custom-select">
+                    <select name="select" id="select">
+                        <option value="popularity">Popularité</option>
+                        <option value="date">Date</option>
+                        <option value="title">Titre</option>
+                    </select>
+                </div>
+            </form>
+            <section class="work-gallery"></section>
+        </main>
+        <div class="background-modal"></div>
+        <div id="contact_modal">
+            <div class="modal">
+                <header class="modal-header">
+                    <h2 class="modal-title">Contactez-moi</h2>
+                    <img src="assets/icons/close.svg" class="contact_modal_form" />
+                </header>
+                <form class="modal-form">
+                    <div class="input-container">
+                        <label for="firstname">Prénom</label>
+                        <input type="text" id="firstname" required />
+
+                        <label for="name">Nom</label>
+                        <input type="text" id="name" required />
+
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required />
+
+                        <label for="message">Votre message</label>
+                        <input type="text" id="message" required />
+                    </div>
+                    <button class="send_btn_form">Envoyer</button>
+                </form>
+            </div>
+        </div>
+        <div class="carousel-modal"></div>
+        <div class="likes-price">
+            <div class="likes">
+                <p class="likes-stats"></p>
+                <img
+                    src="./assets/icons/black-heart.svg"
+                    alt="coeur"
+                    class="likes-heart"
+                />
+            </div>
+            <div class="price-per-day"></div>
+        </div>
+        <script type="module" src="/src/scripts/pages/photographer.js"></script>
+    </body>
+</html>

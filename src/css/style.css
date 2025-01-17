@@ -1,0 +1,75 @@
+@import url("photographer.css");
+
+body {
+    font-family: "DM Sans", sans-serif;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+}
+
+h1 {
+    color: #901C1C;
+    margin-right: 100px;
+}
+
+.logo {
+    height: 50px;
+    margin-left: 100px;
+}
+
+.photographer_section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 70px;
+    margin-top: 100px;
+}
+
+.photographer_section article a {
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.photographer_section article h2 {
+    color: #D3573C;
+    font-size: 36px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.photographer_section article img {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.overview-location, .overview-description, .overview-price {
+    margin: 0;
+} 
+
+.overview-location {
+    color: #901C1C;
+    font-size: 13px;
+    margin-bottom: 3px;
+}
+
+.overview-description {
+    font-size: 10px;
+    margin-bottom: 3px;
+    color: black;
+}
+
+.overview-price {
+    color: #757575;
+    font-size: 9px;
+}
