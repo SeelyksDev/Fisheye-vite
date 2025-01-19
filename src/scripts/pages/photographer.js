@@ -1,10 +1,9 @@
 //Mettre le code JavaScript lié à la page photographer.html
 import "../../css/photographer.css";
-import { getPhotographers } from './home.js'
-import { photographerTemplate } from '../templates/photographer.js';
-import { galleryTemplate, numberOfLikes } from '../templates/gallery.js';
-import { modalCarouselTemplate } from '../templates/modalCarousel.js';
-
+import { getPhotographers } from "./home.js";
+import { photographerTemplate } from "../templates/photographer.js";
+import { galleryTemplate } from "../templates/gallery.js";
+import { modalCarouselTemplate } from "../templates/modalCarousel.js";
 
 export async function getPhotographerById(id) {
     const data = await getPhotographers();
@@ -43,6 +42,7 @@ async function displayGalleryWorks(id) {
             function renderGallery(media) {
                 const workGallery = document.querySelector(".work-gallery");
                 workGallery.innerHTML = "";
+
                 media.forEach((photographMedia) => {
                     const galleryModel = galleryTemplate(
                         photographMedia,
@@ -50,6 +50,7 @@ async function displayGalleryWorks(id) {
                     );
                     galleryModel.getGalleryDOM();
                 });
+
                 const workCards = document.querySelectorAll(".work-card");
                 workCards.forEach((workCard) => {
                     workCard.addEventListener("click", () => {

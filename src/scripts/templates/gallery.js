@@ -1,55 +1,70 @@
-export let numberOfLikes = 0;
-let isLiked = false;
-let like = 0
-export function galleryTemplate(media, details) {
-    function getGalleryDOM() {
-        like += media.likes
-        numberOfLikes += Number(media.likes);
-        const likesCounter = document.querySelector(".likes-stats");
-        const workGallery = document.querySelector(".work-gallery");
-        workGallery.innerHTML += `
-                <article class="work-card" data-title="${
-                    media.title
-                }" data-id="${media.id}">
-                 ${
-                     media.image
-                         ? `<img src="assets/images/${details.name}/${media.image}" alt="${media.title}" class="card-media">`
-                         : ""
-                 }
-                 ${
-                     media.video
-                         ? `<video class="card-media">>
-                    <source src="assets/images/${details.name}/${media.video}" type="video/mp4"/>
-                    </video>`
-                         : ""
-                 }
-                    <div class="card-description">
-                        <p class="card-title">${media.title}</p>
-                        <div class="card-likes-stats">
-                            <p class="number-likes">${media.likes}</p>
-                            <img src="./assets/icons/red-heart.svg" alt="image d'un coeur rouge" class="card-heart">
-                        </div>
-                    </div>
-                </article>
-                `;
-        likesCounter.textContent = numberOfLikes;
+let numberOfLikes = 0;
 
-        const hearts = document.querySelectorAll(".card-heart");
-        hearts.forEach((heart) => {
+export function galleryTemplate(media, details) {
+    numberOfLikes += media.likes;
+
+    function getGalleryDOM() {
+        const workGallery = document.querySelector(".work-gallery");
+
+        const card = document.createElement("article");
+        card.classList.add("work-card");
+        card.setAttribute("data-id", media.id);
+        card.setAttribute("data-title", media.title);
+
+        card.innerHTML = `
+            ${media.image ? `<img src="assets/images/${details.name}/${media.image}" alt="${media.title}" class="card-media">` : ""}
+            ${media.video ? `
+                <video class="card-media">
+                    <source src="assets/images/${details.name}/${media.video}" type="video/mp4" />
+                </video>` : ""}
+            <div class="card-description">
+                <p class="card-title">${media.title}</p>
+                <div class="card-likes-stats">
+                    <p class="number-likes">${media.likes}</p>
+                    <img src="./assets/icons/red-heart.svg" alt="image d'un coeur rouge" class="card-heart">
+                </div>
+            </div>
+        `;
+
+        workGallery.appendChild(card);
+
+        let number = media.likes;
+        let isLiked = false;
+        const heart = card.querySelector(".card-heart");
+
+        if (heart) {
             heart.addEventListener("click", (event) => {
                 event.stopPropagation();
-                console.log("click heart");
                 if (!isLiked) {
                     numberOfLikes++;
+                    number++;
                     isLiked = true;
-                    getGalleryDOM();
-                } else if (isLiked) {
+                } else {
                     numberOfLikes--;
+                    number--;
                     isLiked = false;
                 }
+
+                getLikesCardDOM(card, number);
+                getTotalLikesDOM();
             });
-        });
+        }
+        getTotalLikesDOM();
     }
-    console.log(like)
-    return { getGalleryDOM };
+
+    function getLikesCardDOM(card, number) {
+        const cardLikeElement = card.querySelector(".number-likes");
+        if (cardLikeElement) {
+            cardLikeElement.textContent = number;
+        }
+    }
+
+    function getTotalLikesDOM() {
+        const likesCounter = document.querySelector(".likes-stats");
+        if (likesCounter) {
+            likesCounter.textContent = numberOfLikes;
+        }
+    }
+
+    return { getGalleryDOM, getTotalLikesDOM };
 }
