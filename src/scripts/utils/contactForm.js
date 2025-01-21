@@ -34,4 +34,20 @@ async function displayName() {
     }
 }
 
+function sendInformation() {
+    const firstname = document.getElementById('firstname').value;
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    console.log({firstname, name, email, message})
+}
+
+const sendBtnForm = document.querySelector('.send_btn_form');
+sendBtnForm?.addEventListener("click", (e) => {
+    e.preventDefault();
+    sendInformation();
+    
+} )
+
 displayName();
