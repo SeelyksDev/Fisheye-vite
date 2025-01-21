@@ -46,7 +46,7 @@ body {
     font-size: 18px;
 }
 
-.contact_button {
+.contact_button, .send_btn_form {
     font-size: 20px;
     font-weight: bold;
     color: white;
@@ -202,6 +202,10 @@ body {
 
 #message {
     height: 170px;
+}
+
+.send_btn_form:hover {
+    border: 1px solid black;
 }
 
 .work-gallery {
