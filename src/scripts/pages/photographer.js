@@ -2,7 +2,7 @@
 import "../../css/photographer.css";
 import { getPhotographers } from "./home.js";
 import { photographerTemplate } from "../templates/photographer.js";
-import { galleryTemplate } from "../templates/gallery.js";
+import { galleryTemplate, resetNumberOfLikes } from "../templates/gallery.js";
 import { modalCarouselTemplate } from "../templates/modalCarousel.js";
 
 export async function getPhotographerById(id) {
@@ -43,10 +43,13 @@ async function displayGalleryWorks(id) {
                 const workGallery = document.querySelector(".work-gallery");
                 workGallery.innerHTML = "";
 
+                resetNumberOfLikes();
+
                 media.forEach((photographMedia) => {
                     const galleryModel = galleryTemplate(
                         photographMedia,
-                        photographerDetails
+                        photographerDetails,
+
                     );
                     galleryModel.getGalleryDOM();
                 });

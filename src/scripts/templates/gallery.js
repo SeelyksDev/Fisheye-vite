@@ -1,5 +1,9 @@
 let numberOfLikes = 0;
 
+export function resetNumberOfLikes() {
+    numberOfLikes = 0;
+}
+
 export function galleryTemplate(media, details) {
     numberOfLikes += media.likes;
 
