@@ -14,6 +14,7 @@ export function galleryTemplate(media, details) {
         card.classList.add("work-card");
         card.setAttribute("data-id", media.id);
         card.setAttribute("data-title", media.title);
+        card.setAttribute("tabIndex", "0");
 
         card.innerHTML = `
             ${media.image ? `<img src="assets/images/${details.name}/${media.image}" alt="${media.title}" class="card-media">` : ""}
