@@ -3,13 +3,14 @@ import { getPhotographerById } from "../pages/photographer.js";
 export function displayModal() {
     const modal = document.getElementById("contact_modal");
     const backgroundTransparent = document.querySelector(".background-modal");
-    const closeModalForm = document.querySelector('.contact_modal_form');
+    const closeModalForm = document.querySelector(".contact_modal_form");
+
     modal.style.display = "block";
     backgroundTransparent.style.display = "block";
-    closeModalForm.addEventListener('click', closeModal)
+    closeModalForm.addEventListener("click", closeModal);
 }
 
- function closeModal() {
+function closeModal() {
     const modal = document.getElementById("contact_modal");
     const backgroundTransparent = document.querySelector(".background-modal");
     modal.style.display = "none";
@@ -35,19 +36,18 @@ async function displayName() {
 }
 
 function sendInformation() {
-    const firstname = document.getElementById('firstname').value;
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
+    const firstname = document.getElementById("firstname").value;
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
 
-    console.log({firstname, name, email, message})
+    console.log({ firstname, name, email, message });
 }
 
-const sendBtnForm = document.querySelector('.send_btn_form');
+const sendBtnForm = document.querySelector(".send_btn_form");
 sendBtnForm?.addEventListener("click", (e) => {
     e.preventDefault();
     sendInformation();
-    
-} )
+});
 
 displayName();

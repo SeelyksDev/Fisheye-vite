@@ -49,7 +49,6 @@ async function displayGalleryWorks(id) {
                     const galleryModel = galleryTemplate(
                         photographMedia,
                         photographerDetails,
-
                     );
                     galleryModel.getGalleryDOM();
                 });
@@ -64,6 +63,17 @@ async function displayGalleryWorks(id) {
                             id
                         );
                         carousel.getCarouselDOM();
+                    });
+                    workCard.addEventListener("keydown", (event) => {
+                        const id = workCard.dataset.id;
+                        const carousel = modalCarouselTemplate(
+                            photographerMedia,
+                            photographerDetails,
+                            id
+                        );
+                        if (event.key === "Enter") {
+                            carousel.getCarouselDOM();
+                        }
                     });
                 });
             }
