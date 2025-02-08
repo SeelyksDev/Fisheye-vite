@@ -12,17 +12,16 @@ function handleEnterPress(event) {
     }
 }
 
-
 export function displayModal() {
     const modal = document.getElementById("contact_modal");
     const backgroundTransparent = document.querySelector(".background-modal");
     const closeModalForm = document.querySelector(".close_modal_form");
-    const headerPhotograph = document.querySelector('.header-photograph');
-    const main = document.getElementById('main');
+    const headerPhotograph = document.querySelector(".header-photograph");
+    const main = document.getElementById("main");
 
     modal.style.display = "block";
     backgroundTransparent.style.display = "block";
-    closeModalForm.setAttribute('tabIndex', "0")
+    closeModalForm.setAttribute("tabIndex", "0");
     closeModalForm.addEventListener("click", closeModal);
     closeModalForm.addEventListener("keydown", handleEnterPress);
 
@@ -37,17 +36,25 @@ function closeModal() {
     const modal = document.getElementById("contact_modal");
     const backgroundTransparent = document.querySelector(".background-modal");
     const closeModalForm = document.querySelector(".close_modal_form");
-    const headerPhotograph = document.querySelector('.header-photograph');
-    const main = document.getElementById('main');
+    const headerPhotograph = document.querySelector(".header-photograph");
+    const main = document.getElementById("main");
     modal.style.display = "none";
     backgroundTransparent.style.display = "none";
     closeModalForm.removeEventListener("click", closeModal);
     closeModalForm.removeEventListener("keydown", handleEnterPress);
     window.removeEventListener("keydown", handleKeyDownEscape);
-    headerPhotograph.removeAttribute('aria-hidden');
-    headerPhotograph.removeAttribute('inert')
-    main.removeAttribute('aria-hidden');
-    main.removeAttribute('inert');
+    headerPhotograph.removeAttribute("aria-hidden");
+    headerPhotograph.removeAttribute("inert");
+    main.removeAttribute("aria-hidden");
+    main.removeAttribute("inert");
+    document.getElementById("firstnameError").style.display = 'none' 
+    document.getElementById("nameError").style.display = 'none'
+    document.getElementById("emailError").style.display = 'none'
+    document.getElementById("messageError").style.display = 'none'
+    document.getElementById("firstname").style.border = 'none'
+    document.getElementById("name").style.border = 'none'
+    document.getElementById("email").style.border = 'none'
+    document.getElementById("message").style.border = 'none' 
 }
 
 async function displayName() {
@@ -68,19 +75,54 @@ async function displayName() {
     }
 }
 
-function sendInformation() {
-    const firstname = document.getElementById("firstname").value;
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const message = document.getElementById("message").value;
+const form = document.querySelector(".modal-form");
 
-    console.log({ firstname, name, email, message });
-}
-
-const sendBtnForm = document.querySelector(".send_btn_form");
-sendBtnForm?.addEventListener("click", (e) => {
+form?.addEventListener("submit", (e) => {
     e.preventDefault();
-    sendInformation();
+
+    let isValid = true;
+    const firstnameInput = document.getElementById("firstname").value.trim();
+    const nameInput = document.getElementById("name").value.trim();
+    const emailInput = document.getElementById("email").value.trim();
+    const messageInput = document.getElementById("message").value.trim();
+    const errorMessage = document.querySelector(".error-message");
+
+    if (firstnameInput.length < 2) {
+        document.getElementById("firstnameError").textContent = "Le prénom est requis.";
+        document.getElementById("firstnameError").style.display = 'flex'  
+        document.getElementById("firstname").style.border = '3px solid red'
+        console.log("prenom pas bon");
+        isValid = false;
+    }
+
+    if (nameInput.length < 2) {
+        document.getElementById("nameError").textContent = "Le nom est requis.";
+        document.getElementById("nameError").style.display = 'flex'
+        document.getElementById("name").style.border = '3px solid red'  
+        console.log("nom pas bon ");
+        isValid = false;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(emailInput)) {
+        document.getElementById("emailError").textContent = "L'email n'est pas valide.";
+        document.getElementById("emailError").style.display = 'flex'
+        document.getElementById("email").style.border = '3px solid red'  
+        console.log("mail pas bon");
+        isValid = false;
+    }
+
+    if (messageInput.length < 10) {
+        document.getElementById("messageError").textContent = "Le message doit contenir au moins 10 caractères.";
+        document.getElementById("messageError").style.display = 'flex'
+        document.getElementById("message").style.border = '3px solid red'  
+        console.log("message pas bon");
+        isValid = false;
+    }
+
+    if (isValid) {
+        console.log({ firstnameInput, nameInput, emailInput, errorMessage });
+    }
 });
 
 displayName();

@@ -17,6 +17,29 @@ export function modalCarouselTemplate(media, details, id) {
         }
     });
 
+    function getCurrentMedia(mediaIndex, media) {
+        if (media === "image") {
+            return `<img class="lightbox-media" src="assets/images/${details.name}/${mediaIndex.image}" alt="${mediaIndex.title}" />`;
+        } else if (media === "video") {
+            return `<video controls class="lightbox-media">
+                       <source src="assets/images/${details.name}/${mediaIndex.video}" type="video/mp4"/>
+                    </video>`;
+        } else {
+            return "";
+        }
+    }
+
+    function updateMedia() {
+        const mediaContainer = document.querySelector(".media-title");
+        if (!mediaContainer) return;
+        
+        mediaContainer.innerHTML = `
+            ${allMedias[currentIndex].image ? getCurrentMedia(allMedias[currentIndex], "image") : ""}
+            ${allMedias[currentIndex].video ? getCurrentMedia(allMedias[currentIndex], "video") : ""}
+            <h4 class="lightbox-title">${allMedias[currentIndex].title}</h4>
+        `;
+    }
+
     let currentIndex;
     const getIndexSelected = (el) => el.id === numberID;
     currentIndex = allMedias.findIndex(getIndexSelected);
@@ -34,27 +57,13 @@ export function modalCarouselTemplate(media, details, id) {
                     <img class="lightbox-cross" tabIndex="0" src="/assets/icons/red-cross.svg" alt="icone d'une croix" />
                     <img class="lightbox-arrow-left lightbox-arrow" tabIndex="0" src="/assets/icons/red-arrow-left.svg" alt="flèche vers la gauche" />
                     <div class="media-title">
-                    ${
-                        allMedias[currentIndex].image
-                            ? `<img class="lightbox-media" src="assets/images/${details.name}/${allMedias[currentIndex].image}" alt="${allMedias[currentIndex].title}" />`
-                            : ""
-                    }
-                    ${
-                        allMedias[currentIndex].video
-                            ? `<video controls class="lightbox-media">>
-                       <source src="assets/images/${details.name}/${allMedias[currentIndex].video}" type="video/mp4"/>
-                       </video>`
-                            : ""
-                    }
-                        <h4 class="lightbox-title">${
-                            allMedias[currentIndex].title
-                        }</h4>
                     </div>
                     <img class="lightbox-arrow-right lightbox-arrow" tabIndex="0" src="/assets/icons/red-right-arrow.svg" alt="" />
                 </div>
             </div>
         `;
 
+        const video = document.querySelector(".lightbox-media");
         headerPhotograph.setAttribute("aria-hidden", "true");
         headerPhotograph.setAttribute("inert", "");
         main.setAttribute("aria-hidden", "true");
@@ -66,7 +75,7 @@ export function modalCarouselTemplate(media, details, id) {
             } else {
                 currentIndex--;
             }
-            getCarouselDOM();
+            updateMedia();
         }
 
         function nextMedia() {
@@ -75,7 +84,7 @@ export function modalCarouselTemplate(media, details, id) {
             } else {
                 currentIndex++;
             }
-            getCarouselDOM();
+            updateMedia();
         }
 
         const arrowLeft = document.querySelector(".lightbox-arrow-left");
@@ -104,7 +113,7 @@ export function modalCarouselTemplate(media, details, id) {
             headerPhotograph.removeAttribute("inert");
             main.removeAttribute("aria-hidden");
             main.removeAttribute("inert");
-            window.removeEventListener("keydown", handleKeyDownEscape);
+            window.removeEventListener("keydown", handleKeyDown);
             lightboxCross.removeEventListener("keydown", handleEnterPress);
         }
 
@@ -118,13 +127,28 @@ export function modalCarouselTemplate(media, details, id) {
         lightboxCross.addEventListener("keydown", handleEnterPress);
         lightboxCross.addEventListener("click", closeCarousel);
 
-        function handleKeyDownEscape(event) {
+        function handleKeyDown(event) {
             if (event.key === "Escape") {
                 closeCarousel();
+            } else if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                previousMedia();
+            } else if (event.key === "ArrowRight") {
+                event.preventDefault();
+                nextMedia();
+            } else if (event.key === "Space") {
+                event.addEventListener();
+                video.play();
             }
         }
 
-        window.addEventListener("keydown", handleKeyDownEscape);
+        window.addEventListener("keydown", handleKeyDown);
+
+        function initializeMedia() {
+            updateMedia();
+        }
+        
+        initializeMedia();
     }
 
     return { getCarouselDOM };
