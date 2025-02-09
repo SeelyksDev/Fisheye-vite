@@ -20,6 +20,7 @@ export function displayModal() {
     const main = document.getElementById("main");
 
     modal.style.display = "block";
+    modal.setAttribute("aria-hidden", "false");
     backgroundTransparent.style.display = "block";
     closeModalForm.setAttribute("tabIndex", "0");
     closeModalForm.addEventListener("click", closeModal);
@@ -39,6 +40,7 @@ function closeModal() {
     const headerPhotograph = document.querySelector(".header-photograph");
     const main = document.getElementById("main");
     modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
     backgroundTransparent.style.display = "none";
     closeModalForm.removeEventListener("click", closeModal);
     closeModalForm.removeEventListener("keydown", handleEnterPress);
@@ -91,7 +93,6 @@ form?.addEventListener("submit", (e) => {
         document.getElementById("firstnameError").textContent = "Le prénom est requis.";
         document.getElementById("firstnameError").style.display = 'flex'  
         document.getElementById("firstname").style.border = '3px solid red'
-        console.log("prenom pas bon");
         isValid = false;
     }
 
@@ -99,7 +100,6 @@ form?.addEventListener("submit", (e) => {
         document.getElementById("nameError").textContent = "Le nom est requis.";
         document.getElementById("nameError").style.display = 'flex'
         document.getElementById("name").style.border = '3px solid red'  
-        console.log("nom pas bon ");
         isValid = false;
     }
 
@@ -108,7 +108,6 @@ form?.addEventListener("submit", (e) => {
         document.getElementById("emailError").textContent = "L'email n'est pas valide.";
         document.getElementById("emailError").style.display = 'flex'
         document.getElementById("email").style.border = '3px solid red'  
-        console.log("mail pas bon");
         isValid = false;
     }
 
@@ -116,7 +115,6 @@ form?.addEventListener("submit", (e) => {
         document.getElementById("messageError").textContent = "Le message doit contenir au moins 10 caractères.";
         document.getElementById("messageError").style.display = 'flex'
         document.getElementById("message").style.border = '3px solid red'  
-        console.log("message pas bon");
         isValid = false;
     }
 

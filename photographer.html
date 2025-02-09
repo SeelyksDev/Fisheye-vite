@@ -16,7 +16,8 @@
                 <img
                     src="assets/images/logo.png"
                     class="logo"
-                    alt="logo de Fisheye - Page d'acceuil"
+                    alt=""
+                    aria-label=" Bouton pour retourner à la page d'accueil"
                 />
             </a>
         </header>
@@ -24,7 +25,7 @@
             <section class="photograph-header"></section>
             <form class="form-select">
                 <label for="select" class="label-select">Trier par</label>
-                <div class="custom-select">
+                <div class="custom-select">    
                     <select name="select" id="select">
                         <option value="popularity">Popularité</option>
                         <option value="date">Date</option>
@@ -35,12 +36,13 @@
             <section class="work-gallery"></section>
         </main>
         <div class="background-modal"></div>
-        <div id="contact_modal">
+        <div id="contact_modal" role="dialog" aria-hidden="true">
             <div class="modal">
                 <header class="modal-header">
                     <h2 class="modal-title">Contactez-moi</h2>
                     <img
                         src="assets/icons/close.svg"
+                        aria-label="Bouton pour fermer la modal"
                         class="close_modal_form"
                     />
                 </header>
@@ -51,16 +53,17 @@
                             type="text"
                             id="firstname"
                             aria-required="true"
+                            
                         />
-                        <span class="error-message" id="firstnameError"></span>
+                        <span class="error-message" id="firstnameError" aria-live="assertive"></span>
 
                         <label for="name">Nom</label>
                         <input
                             type="text"
                             id="name"
-                            aria-required="true"
+                            aria-required="true"    
                         />
-                        <span class="error-message" id="nameError"></span>
+                        <span class="error-message" id="nameError" aria-live="assertive"></span>
 
                         <label for="email">Email</label>
                         <input
@@ -68,7 +71,7 @@
                             id="email"
                             aria-required="true"
                         />
-                        <span class="error-message" id="emailError"></span>
+                        <span class="error-message" id="emailError" aria-live="assertive"></span>
 
                         <label for="message">Votre message</label>
                         <input
@@ -76,13 +79,13 @@
                             id="message"
                             aria-required="true"
                         />
-                        <span class="error-message" id="messageError"></span>
+                        <span class="error-message" id="messageError" aria-live="assertive"></span>
                     </div>
-                    <button class="send_btn_form" type="submit">Envoyer</button>
+                    <button class="send_btn_form" aria-label="Envoyer les informations" type="submit">Envoyer</button>
                 </form>
             </div>
         </div>
-        <div class="carousel-modal"></div>
+        <div class="carousel-modal" role="dialog" aria-hidden="true"></div>
         <div class="likes-price">
             <div class="likes">
                 <p class="likes-stats"></p>

@@ -48,17 +48,18 @@ export function modalCarouselTemplate(media, details, id) {
         const carouselModal = document.querySelector(".carousel-modal");
         const headerPhotograph = document.querySelector(".header-photograph");
         const main = document.getElementById("main");
+        carouselModal.setAttribute('aria-hidden', "false")
         window.scrollTo({ top: 0 });
         carouselModal.style.display = "block";
         document.body.style.overflow = "hidden";
         carouselModal.innerHTML = `
             <div class="lightbox">
                 <div class="arrow-image">
-                    <img class="lightbox-cross" tabIndex="0" src="/assets/icons/red-cross.svg" alt="icone d'une croix" />
-                    <img class="lightbox-arrow-left lightbox-arrow" tabIndex="0" src="/assets/icons/red-arrow-left.svg" alt="flèche vers la gauche" />
+                    <img class="lightbox-cross" tabIndex="0" src="/assets/icons/red-cross.svg" alt="" aria-label="Bouton pour fermer le carrousel" />
+                    <img class="lightbox-arrow-left lightbox-arrow" tabIndex="0" src="/assets/icons/red-arrow-left.svg" alt="" aria-label="Média précédant" />
                     <div class="media-title">
                     </div>
-                    <img class="lightbox-arrow-right lightbox-arrow" tabIndex="0" src="/assets/icons/red-right-arrow.svg" alt="" />
+                    <img class="lightbox-arrow-right lightbox-arrow" tabIndex="0" src="/assets/icons/red-right-arrow.svg" alt="" aria-label="Média suivant" />
                 </div>
             </div>
         `;
@@ -109,9 +110,10 @@ export function modalCarouselTemplate(media, details, id) {
             document.body.style.overflow = "auto";
             carouselModal.style.display = "none";
             carouselModal.innerHTML = "";
-            headerPhotograph.removeAttribute("aria-hidden");
+            carouselModal.setAttribute('aria-hidden', "true")
+            headerPhotograph.setAttribute("aria-hidden", "false");
             headerPhotograph.removeAttribute("inert");
-            main.removeAttribute("aria-hidden");
+            main.setAttribute("aria-hidden", "false");
             main.removeAttribute("inert");
             window.removeEventListener("keydown", handleKeyDown);
             lightboxCross.removeEventListener("keydown", handleEnterPress);
@@ -121,7 +123,7 @@ export function modalCarouselTemplate(media, details, id) {
             if (event.key === "Enter") {
                 closeCarousel();
             }
-        }
+        }   
 
         const lightboxCross = document.querySelector(".lightbox-cross");
         lightboxCross.addEventListener("keydown", handleEnterPress);

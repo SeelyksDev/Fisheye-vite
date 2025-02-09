@@ -9,15 +9,17 @@ export function galleryTemplate(media, details) {
 
     function getGalleryDOM() {
         const workGallery = document.querySelector(".work-gallery");
+        workGallery.setAttribute('aria-label', `Gallerie des travaux de ${details.name}`);
 
         const card = document.createElement("article");
         card.classList.add("work-card");
         card.setAttribute("data-id", media.id);
         card.setAttribute("data-title", media.title);
         card.setAttribute("tabIndex", "0");
+        card.setAttribute("aria-describedby", "info-carousel");
 
         card.innerHTML = `
-            ${media.image ? `<img src="assets/images/${details.name}/${media.image}" alt="${media.title}" class="card-media">` : ""}
+            ${media.image ? `<img src="assets/images/${details.name}/${media.image}" alt="" class="card-media">` : ""}
             ${media.video ? `
                 <video class="card-media">
                     <source src="assets/images/${details.name}/${media.video}" type="video/mp4" />
@@ -25,10 +27,11 @@ export function galleryTemplate(media, details) {
             <div class="card-description">
                 <p class="card-title">${media.title}</p>
                 <div class="card-likes-stats">
-                    <p class="number-likes">${media.likes}</p>
-                    <img src="./assets/icons/red-heart.svg" alt="image d'un coeur rouge" class="card-heart">
+                    <p class="number-likes" aria-label="${media.likes} likes">${media.likes}</p>
+                    <img src="./assets/icons/red-heart.svg" alt="image d'un coeur rouge" aria-hidden="true" class="card-heart">
                 </div>
             </div>
+            <span id="info-carousel" hidden>Ouvre une modale contenant un carrousel.</span>
         `;
 
         workGallery.appendChild(card);
@@ -68,6 +71,7 @@ export function galleryTemplate(media, details) {
         const likesCounter = document.querySelector(".likes-stats");
         if (likesCounter) {
             likesCounter.textContent = numberOfLikes;
+            likesCounter.setAttribute("aria-label", `Les travaux de ${details.name} comptabilisent ${numberOfLikes} likes au total`);
         }
     }
 
