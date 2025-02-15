@@ -92,43 +92,63 @@ async function displayName() {
 const form = document.querySelector(".modal-form");
 
 form?.addEventListener("submit", (e) => {
+
     e.preventDefault();
 
     let isValid = true;
+
+    const firstname = document.getElementById("firstname");
+    const name = document.getElementById("name");
+    const email = document.getElementById("email");
+    const message = document.getElementById("message");
+
+    const firstnameError = document.getElementById("firstnameError");
+    const nameError = document.getElementById("nameError");
+    const emailError = document.getElementById("emailError");
+    const messageError = document.getElementById("messageError");
+
     const firstnameInput = document.getElementById("firstname").value.trim();
     const nameInput = document.getElementById("name").value.trim();
     const emailInput = document.getElementById("email").value.trim();
     const messageInput = document.getElementById("message").value.trim();
 
-    if (firstnameInput.length < 2) {
-        document.getElementById("firstnameError").textContent =
-            "Le prénom est requis.";
-        document.getElementById("firstnameError").style.display = "flex";
-        document.getElementById("firstname").style.border = "3px solid red";
+    [firstname, name, email, message].forEach((input) => {
+        input.style.border = "none"; 
+    });
+
+    [firstnameError, nameError, emailError, messageError].forEach((error) => {
+        error.textContent = "";
+        error.style.display = "none";
+    });
+
+    const nameRegex = /[^A-Za-z\s]/;
+
+    if (firstnameInput.length < 2 || nameRegex.test(firstnameInput)) {
+        firstnameError.textContent = "Le prénom est requis. Il doit contenir uniquement des lettres.";
+        firstnameError.style.display = "flex";
+        firstname.style.border = "3px solid red";
         isValid = false;
     }
 
-    if (nameInput.length < 2) {
-        document.getElementById("nameError").textContent = "Le nom est requis.";
-        document.getElementById("nameError").style.display = "flex";
-        document.getElementById("name").style.border = "3px solid red";
+    if (nameInput.length < 2 || nameRegex.test(nameInput)) {
+        nameError.textContent = "Le nom est requis. Il doit contenir uniquement des lettres.";
+        nameError.style.display = "flex";
+        name.style.border = "3px solid red";
         isValid = false;
     }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(emailInput)) {
-        document.getElementById("emailError").textContent =
-            "L'email n'est pas valide.";
-        document.getElementById("emailError").style.display = "flex";
-        document.getElementById("email").style.border = "3px solid red";
+        emailError.textContent = "L'email n'est pas valide.";
+        emailError.style.display = "flex";
+        email.style.border = "3px solid red";
         isValid = false;
     }
 
     if (messageInput.length < 10) {
-        document.getElementById("messageError").textContent =
-            "Le message doit contenir au moins 10 caractères.";
-        document.getElementById("messageError").style.display = "flex";
-        document.getElementById("message").style.border = "3px solid red";
+        messageError.textContent = "Le message doit contenir au moins 10 caractères.";
+        messageError.style.display = "flex";
+        message.style.border = "3px solid red";
         isValid = false;
     }
 
