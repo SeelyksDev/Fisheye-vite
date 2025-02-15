@@ -12,7 +12,12 @@ function handleEnterPress(event) {
     }
 }
 
+let lastFocusedElement;
+
 export function displayModal() {
+    lastFocusedElement = document.activeElement;
+    document.body.style.overflow = "hidden";
+    document.body.style.height = "100vh";
     const modal = document.getElementById("contact_modal");
     const backgroundTransparent = document.querySelector(".background-modal");
     const closeModalForm = document.querySelector(".close_modal_form");
@@ -25,6 +30,7 @@ export function displayModal() {
     closeModalForm.setAttribute("tabIndex", "0");
     closeModalForm.addEventListener("click", closeModal);
     closeModalForm.addEventListener("keydown", handleEnterPress);
+    closeModalForm.focus();
 
     window.addEventListener("keydown", handleKeyDownEscape);
     headerPhotograph.setAttribute("aria-hidden", "true");
@@ -34,6 +40,8 @@ export function displayModal() {
 }
 
 function closeModal() {
+    document.body.style.overflow = "";
+    document.body.style.height = "";
     const modal = document.getElementById("contact_modal");
     const backgroundTransparent = document.querySelector(".background-modal");
     const closeModalForm = document.querySelector(".close_modal_form");
@@ -49,14 +57,18 @@ function closeModal() {
     headerPhotograph.removeAttribute("inert");
     main.removeAttribute("aria-hidden");
     main.removeAttribute("inert");
-    document.getElementById("firstnameError").style.display = 'none' 
-    document.getElementById("nameError").style.display = 'none'
-    document.getElementById("emailError").style.display = 'none'
-    document.getElementById("messageError").style.display = 'none'
-    document.getElementById("firstname").style.border = 'none'
-    document.getElementById("name").style.border = 'none'
-    document.getElementById("email").style.border = 'none'
-    document.getElementById("message").style.border = 'none' 
+    document.getElementById("firstnameError").style.display = "none";
+    document.getElementById("nameError").style.display = "none";
+    document.getElementById("emailError").style.display = "none";
+    document.getElementById("messageError").style.display = "none";
+    document.getElementById("firstname").style.border = "none";
+    document.getElementById("name").style.border = "none";
+    document.getElementById("email").style.border = "none";
+    document.getElementById("message").style.border = "none";
+
+    if (lastFocusedElement) {
+        lastFocusedElement.focus();
+    }
 }
 
 async function displayName() {
@@ -87,39 +99,41 @@ form?.addEventListener("submit", (e) => {
     const nameInput = document.getElementById("name").value.trim();
     const emailInput = document.getElementById("email").value.trim();
     const messageInput = document.getElementById("message").value.trim();
-    const errorMessage = document.querySelector(".error-message");
 
     if (firstnameInput.length < 2) {
-        document.getElementById("firstnameError").textContent = "Le prénom est requis.";
-        document.getElementById("firstnameError").style.display = 'flex'  
-        document.getElementById("firstname").style.border = '3px solid red'
+        document.getElementById("firstnameError").textContent =
+            "Le prénom est requis.";
+        document.getElementById("firstnameError").style.display = "flex";
+        document.getElementById("firstname").style.border = "3px solid red";
         isValid = false;
     }
 
     if (nameInput.length < 2) {
         document.getElementById("nameError").textContent = "Le nom est requis.";
-        document.getElementById("nameError").style.display = 'flex'
-        document.getElementById("name").style.border = '3px solid red'  
+        document.getElementById("nameError").style.display = "flex";
+        document.getElementById("name").style.border = "3px solid red";
         isValid = false;
     }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(emailInput)) {
-        document.getElementById("emailError").textContent = "L'email n'est pas valide.";
-        document.getElementById("emailError").style.display = 'flex'
-        document.getElementById("email").style.border = '3px solid red'  
+        document.getElementById("emailError").textContent =
+            "L'email n'est pas valide.";
+        document.getElementById("emailError").style.display = "flex";
+        document.getElementById("email").style.border = "3px solid red";
         isValid = false;
     }
 
     if (messageInput.length < 10) {
-        document.getElementById("messageError").textContent = "Le message doit contenir au moins 10 caractères.";
-        document.getElementById("messageError").style.display = 'flex'
-        document.getElementById("message").style.border = '3px solid red'  
+        document.getElementById("messageError").textContent =
+            "Le message doit contenir au moins 10 caractères.";
+        document.getElementById("messageError").style.display = "flex";
+        document.getElementById("message").style.border = "3px solid red";
         isValid = false;
     }
 
     if (isValid) {
-        console.log({ firstnameInput, nameInput, emailInput, errorMessage });
+        console.log({ firstnameInput, nameInput, emailInput, messageInput });
     }
 });
 

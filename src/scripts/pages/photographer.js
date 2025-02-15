@@ -13,6 +13,7 @@ export async function getPhotographerById(id) {
     const photographerDetails = dataDetails.find(
         (photographer) => photographer.id === id
     );
+    
     const photographerMedia = dataMedias.filter(
         (media) => media.photographerId === id
     );

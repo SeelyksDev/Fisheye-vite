@@ -147,6 +147,7 @@ body {
 }
 
 .modal-header {
+    display: flex;
     align-items: baseline;
     justify-content: space-between;
     width: 100%;
@@ -156,6 +157,11 @@ body {
 
 .modal header img {
     cursor: pointer;
+    transition: filter 0.3s ease;
+}
+
+.modal header img:hover {
+    filter: brightness(0) saturate(100%)
 }
 
 .modal-title {

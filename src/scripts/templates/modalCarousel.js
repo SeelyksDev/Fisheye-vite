@@ -43,8 +43,10 @@ export function modalCarouselTemplate(media, details, id) {
     let currentIndex;
     const getIndexSelected = (el) => el.id === numberID;
     currentIndex = allMedias.findIndex(getIndexSelected);
+    let lastFocusedElement;
 
     function getCarouselDOM() {
+        lastFocusedElement = document.activeElement;
         const carouselModal = document.querySelector(".carousel-modal");
         const headerPhotograph = document.querySelector(".header-photograph");
         const main = document.getElementById("main");
@@ -64,7 +66,7 @@ export function modalCarouselTemplate(media, details, id) {
             </div>
         `;
 
-        const video = document.querySelector(".lightbox-media");
+        document.querySelector('.lightbox-cross').focus();
         headerPhotograph.setAttribute("aria-hidden", "true");
         headerPhotograph.setAttribute("inert", "");
         main.setAttribute("aria-hidden", "true");
@@ -117,6 +119,10 @@ export function modalCarouselTemplate(media, details, id) {
             main.removeAttribute("inert");
             window.removeEventListener("keydown", handleKeyDown);
             lightboxCross.removeEventListener("keydown", handleEnterPress);
+
+            if (lastFocusedElement) {
+                lastFocusedElement.focus();
+            }
         }
 
         function handleEnterPress(event) {
@@ -138,9 +144,6 @@ export function modalCarouselTemplate(media, details, id) {
             } else if (event.key === "ArrowRight") {
                 event.preventDefault();
                 nextMedia();
-            } else if (event.key === "Space") {
-                event.addEventListener();
-                video.play();
             }
         }
 
