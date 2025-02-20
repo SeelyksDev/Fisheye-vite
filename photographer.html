@@ -17,7 +17,7 @@
                     src="assets/images/logo.png"
                     class="logo"
                     alt=""
-                    aria-label=" Bouton pour retourner à la page d'accueil"
+                    aria-label="Bouton pour retourner à la page d'accueil"
                 />
             </a>
         </header>
@@ -25,13 +25,25 @@
             <section class="photograph-header"></section>
             <form class="form-select">
                 <label for="select" class="label-select">Trier par</label>
-                <div class="custom-select">    
-                    <select name="select" id="select">
-                        <option value="popularity">Popularité</option>
-                        <option value="date">Date</option>
-                        <option value="title">Titre</option>
-                    </select>
-                </div>
+
+                <details class="custom-select">
+                    <summary class="select-btn">
+                        <span class="select-title" data-value="popularity"
+                        aria-label="Bouton pour trier la galerie">Popularité</span
+                        >
+                        <img
+                            src="assets/icons/arrow-down.svg"
+                            class="select-arrow"
+                            alt="flèche vers le bas"
+                            aria-hidden="true"
+                        />
+                    </summary>
+                    <ul class="options">
+                        <li data-value="popularity" tabindex="0" aria-label="Trier par popularité">Popularité</li>
+                        <li data-value="date" tabindex="0" aria-label="Trier par date">Date</li>
+                        <li data-value="title" tabindex="0" aria-label="Trier par titre">Titre</li>     
+                    </ul>
+                </details>
             </form>
             <section class="work-gallery"></section>
         </main>
@@ -53,39 +65,52 @@
                             type="text"
                             id="firstname"
                             aria-required="true"
-                            
                         />
-                        <span class="error-message" id="firstnameError" aria-live="assertive"></span>
+                        <span
+                            class="error-message"
+                            id="firstnameError"
+                            aria-live="assertive"
+                        ></span>
 
                         <label for="name">Nom</label>
-                        <input
-                            type="text"
-                            id="name"
-                            aria-required="true"    
-                        />
-                        <span class="error-message" id="nameError" aria-live="assertive"></span>
+                        <input type="text" id="name" aria-required="true" />
+                        <span
+                            class="error-message"
+                            id="nameError"
+                            aria-live="assertive"
+                        ></span>
 
                         <label for="email">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            aria-required="true"
-                        />
-                        <span class="error-message" id="emailError" aria-live="assertive"></span>
+                        <input type="email" id="email" aria-required="true" />
+                        <span
+                            class="error-message"
+                            id="emailError"
+                            aria-live="assertive"
+                        ></span>
 
                         <label for="message">Votre message</label>
-                        <input
-                            type="text"
-                            id="message"
-                            aria-required="true"
-                        />
-                        <span class="error-message" id="messageError" aria-live="assertive"></span>
+                        <input type="text" id="message" aria-required="true" />
+                        <span
+                            class="error-message"
+                            id="messageError"
+                            aria-live="assertive"
+                        ></span>
                     </div>
-                    <button class="send_btn_form" aria-label="Envoyer les informations" type="submit">Envoyer</button>
+                    <button
+                        class="send_btn_form"
+                        aria-label="Envoyer les informations"
+                        type="submit"
+                    >
+                        Envoyer
+                    </button>
                 </form>
             </div>
         </dialog>
-        <dialog class="carousel-modal" role="dialog" aria-hidden="true"></dialog>
+        <dialog
+            class="carousel-modal"
+            role="dialog"
+            aria-hidden="true"
+        ></dialog>
         <div class="likes-price">
             <div class="likes">
                 <p class="likes-stats"></p>
