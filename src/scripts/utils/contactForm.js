@@ -77,24 +77,20 @@ async function displayName() {
     const toNumberId = Number(photographerId);
 
     if (photographerId) {
-        const { photographerDetails } = await getPhotographerById(toNumberId);
+        const { photographerProfils } = await getPhotographerById(toNumberId);
 
-        if (photographerDetails) {
+        if (photographerProfils) {
             const modalTitle = document.querySelector(".modal-title");
             const span = document.createElement("span");
             span.classList.add("modal-title-name");
-            span.textContent = photographerDetails.name;
+            span.textContent = photographerProfils.name;
             modalTitle.appendChild(span);
         }
     }
 }
 
-const form = document.querySelector(".modal-form");
-
-form?.addEventListener("submit", (e) => {
-
-    e.preventDefault();
-
+function handleFormSubmit(event) {
+    event.preventDefault();
     let isValid = true;
 
     const firstname = document.getElementById("firstname");
@@ -107,54 +103,89 @@ form?.addEventListener("submit", (e) => {
     const emailError = document.getElementById("emailError");
     const messageError = document.getElementById("messageError");
 
-    const firstnameInput = document.getElementById("firstname").value.trim();
-    const nameInput = document.getElementById("name").value.trim();
-    const emailInput = document.getElementById("email").value.trim();
-    const messageInput = document.getElementById("message").value.trim();
+    const firstnameInput = firstname.value.trim();
+    const nameInput = name.value.trim();
+    const emailInput = email.value.trim();
+    const messageInput = message.value.trim();
 
-    [firstname, name, email, message].forEach((input) => {
-        input.style.border = "none"; 
-    });
+    clearFormErrors(
+        [firstname, name, email, message],
+        [firstnameError, nameError, emailError, messageError]
+    );
 
-    [firstnameError, nameError, emailError, messageError].forEach((error) => {
-        error.textContent = "";
-        error.style.display = "none";
-    });
-
-    const nameRegex = /[^A-Za-z\s]/;
-
-    if (firstnameInput.length < 2 || nameRegex.test(firstnameInput)) {
-        firstnameError.textContent = "Le prénom est requis. Il doit contenir uniquement des lettres.";
-        firstnameError.style.display = "flex";
-        firstname.style.border = "3px solid red";
+    if (!validateName(firstnameInput)) {
+        showError(
+            firstname,
+            firstnameError,
+            "Le prénom est requis. Il doit contenir uniquement des lettres."
+        );
         isValid = false;
     }
 
-    if (nameInput.length < 2 || nameRegex.test(nameInput)) {
-        nameError.textContent = "Le nom est requis. Il doit contenir uniquement des lettres.";
-        nameError.style.display = "flex";
-        name.style.border = "3px solid red";
+    if (!validateName(nameInput)) {
+        showError(
+            name,
+            nameError,
+            "Le nom est requis. Il doit contenir uniquement des lettres."
+        );
         isValid = false;
     }
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(emailInput)) {
-        emailError.textContent = "L'email n'est pas valide.";
-        emailError.style.display = "flex";
-        email.style.border = "3px solid red";
+    if (!validateEmail(emailInput)) {
+        showError(email, emailError, "L'email n'est pas valide.");
         isValid = false;
     }
 
-    if (messageInput.length < 10) {
-        messageError.textContent = "Le message doit contenir au moins 10 caractères.";
-        messageError.style.display = "flex";
-        message.style.border = "3px solid red";
+    if (!validateMessage(messageInput)) {
+        showError(
+            message,
+            messageError,
+            "Le message doit contenir au moins 10 caractères."
+        );
         isValid = false;
     }
 
     if (isValid) {
         console.log({ firstnameInput, nameInput, emailInput, messageInput });
+        clearFormFields(firstname, name, email, message);
     }
-});
+}
+
+function clearFormFields(firstname, name, email, message) {
+    firstname.value = "";
+    name.value = "";
+    email.value = "";
+    message.value = "";
+}
+
+function clearFormErrors(inputs, errors) {
+    inputs.forEach((input) => (input.style.border = "none"));
+    errors.forEach((error) => {
+        error.textContent = "";
+        error.style.display = "none";
+    });
+}
+
+function validateName(value) {
+    return value.length >= 2 && /^[A-Za-z\s]+$/.test(value);
+}
+
+function validateEmail(value) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(value);
+}
+
+function validateMessage(value) {
+    return value.length >= 10;
+}
+
+function showError(input, errorElement, message) {
+    errorElement.textContent = message;
+    errorElement.style.display = "flex";
+    input.style.border = "3px solid red";
+}
+
+const form = document.querySelector(".modal-form");
+form?.addEventListener("submit", handleFormSubmit);
 
 displayName();

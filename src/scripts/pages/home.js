@@ -1,5 +1,7 @@
 import "../../css/style.css";
-import { photographerTemplate } from '../templates/photographer';
+import { photographerFactory } from "../factories/photographerFactory.js";
+import { photographerHomeTemplate } from '../templates/photographerHomeTemplate.js';
+
 
 export async function getPhotographers() {
     const url = "/src/data/photographers.json";
@@ -9,6 +11,7 @@ export async function getPhotographers() {
             throw new Error(`reponse : ${response.status}`);
         }
         const data = await response.json();
+        
         return data;
     } catch (error) {
         console.error(error.message);
@@ -16,14 +19,13 @@ export async function getPhotographers() {
 }
 
 async function displayData(photographers) {
-    const photographersSection =  document.querySelector(
-        ".photographer_section"
-    );
+    const photographersSection =  document.querySelector(".photographer_section");
+
     if (photographersSection) {
         photographers.forEach((photographer) => {
-            const photographerModel = photographerTemplate(photographer);
-            const userCardDOM = photographerModel.getUserCardDOM();
-            photographersSection.appendChild(userCardDOM);
+            const photographerData = photographerFactory(photographer);
+            const template = photographerHomeTemplate(photographerData).getPhotographerPreviewDOM();
+            photographersSection.appendChild(template);
         });
     }
 }
