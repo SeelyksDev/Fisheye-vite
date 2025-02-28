@@ -1,6 +1,5 @@
 import "../../css/style.css";
-import { photographerFactory } from "../factories/photographerFactory.js";
-import { photographerHomeTemplate } from '../templates/photographerHomeTemplate.js';
+import { PhotographerFactory } from "../factories/photographerFactory.js";
 
 
 export async function getPhotographers() {
@@ -23,9 +22,8 @@ async function displayData(photographers) {
 
     if (photographersSection) {
         photographers.forEach((photographer) => {
-            const photographerData = photographerFactory(photographer);
-            const template = photographerHomeTemplate(photographerData).getPhotographerPreviewDOM();
-            photographersSection.appendChild(template);
+            const photographerTemplate = new PhotographerFactory(photographer);
+            photographersSection.appendChild(photographerTemplate.getPhotographerPreviewDOM());
         });
     }
 }

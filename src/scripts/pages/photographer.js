@@ -1,8 +1,7 @@
 //Mettre le code JavaScript lié à la page photographer.html
 import "../../css/photographer.css";
 import { getPhotographers } from "./home.js";
-import { photographerFactory } from "../factories/photographerFactory.js";
-import { photographerProfilTemplate } from "../templates/photographerProfilTemplate.js";
+import { PhotographerFactory } from "../factories/photographerFactory.js"
 import { renderGallery } from "../utils/renderGallery.js";
 import { updateBorders } from "../utils/updateBorders.js";
 import { handleKeyboardNavigation } from "../utils/handleKeyboardNavigation.js";
@@ -29,19 +28,19 @@ async function displayPhotographerDetails(id) {
         const { photographerProfils } = await getPhotographerById(id);
 
         if (photographerProfils) {
-            const photographerProfilData =
-                photographerFactory(photographerProfils);
-            const photographerTemplate = photographerProfilTemplate(
-                photographerProfilData
+            const photographerProfilTemplate = new PhotographerFactory(
+                photographerProfils
             );
-            return photographerTemplate.getProfilDOM();
+
+            return photographerProfilTemplate.getPhotographerProfilDOM();
         }
     }
 }
 
 async function displayGalleryWorks(id) {
     if (id) {
-        const { photographerMedia, photographerProfils } = await getPhotographerById(id);
+        const { photographerMedia, photographerProfils } =
+            await getPhotographerById(id);
 
         if (photographerMedia && photographerProfils) {
             const details = document.querySelector(".custom-select");

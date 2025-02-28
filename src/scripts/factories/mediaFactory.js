@@ -1,10 +1,14 @@
-export function mediaFactory(data) {
-    return {
-        id: data.id,
-        photographerId: data.photographerId,
-        title: data.title,
-        image: data.image || null,
-        video: data.video || null,
-        likes: data.likes
-    };
+export function MediaFactory(profil, media) {
+    this.id = media.id;
+    this.photographerId = media.photographerId;
+    this.name = profil.name;
+    this.title = media.title;
+    this.image = media.image;
+    this.video = media.video;
+    this.likes = media.likes;
+
+
+
+
+
 }
