@@ -1,11 +1,8 @@
 //Mettre le code JavaScript lié à la page photographer.html
 import "../../css/photographer.css";
 import { getPhotographers } from "./home.js";
-import { PhotographerFactory } from "../factories/photographerFactory.js"
-import { renderGallery } from "../utils/renderGallery.js";
-import { updateBorders } from "../utils/updateBorders.js";
-import { handleKeyboardNavigation } from "../utils/handleKeyboardNavigation.js";
-import { handleOptionClick } from "../utils/handleOptionClick.js";
+import { PhotographerFactory } from "../factories/photographerFactory.js";
+import { renderGallery } from "../templates/gallery.js";
 
 export async function getPhotographerById(id) {
     const data = await getPhotographers();
@@ -99,6 +96,90 @@ function initPhotographerDetails() {
     if (toNumberId) {
         displayPhotographerDetails(toNumberId);
         displayGalleryWorks(toNumberId);
+    }
+}
+
+function handleKeyboardNavigation(event, details) {
+    const visibleOptions = [
+        ...document.querySelectorAll(".options li:not(.hidden)"),
+    ];
+    const currentIndex = visibleOptions.findIndex(
+        (opt) => opt === document.activeElement
+    );
+
+    if (event.key === "ArrowDown") {
+        event.preventDefault();
+        if (currentIndex < visibleOptions.length - 1) {
+            visibleOptions[currentIndex + 1].focus();
+        }
+    } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        if (currentIndex > 0) {
+            visibleOptions[currentIndex - 1].focus();
+        }
+    } else if (event.key === "Enter") {
+        event.preventDefault();
+        if (currentIndex !== -1) {
+            visibleOptions[currentIndex].click();
+        }
+    } else if (event.key === "Escape") {
+        details.removeAttribute("open");
+    }
+}
+
+function handleOptionClick(
+    option,
+    summary,
+    details,
+    sortedMedia,
+    photographerMedia,
+    photographerProfils
+) {
+    option.setAttribute("tabindex", "0");
+    option.addEventListener("click", () => {
+        const selectedValue = option.getAttribute("data-value");
+        const selectedText = option.textContent;
+
+        const currentlySelected = document.querySelector(".options li.hidden");
+        if (currentlySelected) {
+            currentlySelected.classList.remove("hidden");
+        }
+
+        summary.textContent = selectedText;
+        summary.setAttribute("data-value", selectedValue);
+
+        option.classList.add("hidden");
+        details.removeAttribute("open");
+
+        if (selectedValue === "popularity") {
+            sortedMedia = photographerMedia.sort((a, b) => b.likes - a.likes);
+        } else if (selectedValue === "date") {
+            sortedMedia = photographerMedia.sort(
+                (a, b) => new Date(b.date) - new Date(a.date)
+            );
+        } else if (selectedValue === "title") {
+            sortedMedia = photographerMedia.sort((a, b) =>
+                a.title.localeCompare(b.title)
+            );
+        }
+        renderGallery(sortedMedia, photographerMedia, photographerProfils);
+        updateBorders();
+    });
+}
+
+function updateBorders() {
+    const visibleOptions = [
+        ...document.querySelectorAll(".options li:not(.hidden)"),
+    ];
+
+    visibleOptions.forEach((option) => {
+        option.style.borderTop = "none";
+        option.style.borderBottom = "none";
+    });
+
+    if (visibleOptions.length > 0) {
+        visibleOptions[0].style.borderTop = "1px solid white";
+        visibleOptions[0].style.borderBottom = "1px solid white";
     }
 }
 
