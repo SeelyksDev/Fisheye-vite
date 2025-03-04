@@ -10,6 +10,7 @@ export function MediaFactory(photographerName, media) {
     this.likes = media.likes;
     this.isLiked = false;
 
+    // Méthode pour ajouter des cards dans la gallerie
     this.getGalleryDOM = () => {
         const workGallery = document.querySelector(".work-gallery");
         workGallery.setAttribute(
@@ -52,7 +53,7 @@ export function MediaFactory(photographerName, media) {
 
         workGallery.appendChild(card);
 
+        // Gestion des likes 
         handleLike(card, media, this.isLiked, photographerName);
-        //getTotalLikesDOM(profil);
     };
 }

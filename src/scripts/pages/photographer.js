@@ -4,6 +4,7 @@ import { getPhotographers } from "./home.js";
 import { PhotographerFactory } from "../factories/photographerFactory.js";
 import { renderGallery } from "../templates/gallery.js";
 
+// Fonction asynchrone pour récupérer l'information d'un photographe et ses médias à partir de son ID.
 export async function getPhotographerById(id) {
     const data = await getPhotographers();
     const dataProfils = data.photographers;
@@ -20,6 +21,7 @@ export async function getPhotographerById(id) {
     return { photographerProfils, photographerMedia };
 }
 
+// Fonction asynchrone pour afficher les informations d'un photographe comme le nom, la photo de profil, le prix, la localisation, et un phrase.
 async function displayPhotographerDetails(id) {
     if (id) {
         const { photographerProfils } = await getPhotographerById(id);
@@ -34,6 +36,7 @@ async function displayPhotographerDetails(id) {
     }
 }
 
+// Fonction asynchrone pour afficher la galerie des travaux du photographe séléctionné.
 async function displayGalleryWorks(id) {
     if (id) {
         const { photographerMedia, photographerProfils } =
@@ -88,6 +91,7 @@ async function displayGalleryWorks(id) {
     }
 }
 
+// Fonction d'initialisation qui va récupérer l'ID dans l'URL du photographe séléctionné.
 function initPhotographerDetails() {
     const urlParams = new URLSearchParams(window.location.search);
     const photographerId = urlParams.get("id");
@@ -99,6 +103,7 @@ function initPhotographerDetails() {
     }
 }
 
+// Fonction pour gérer la navigation au clavier dans le select
 function handleKeyboardNavigation(event, details) {
     const visibleOptions = [
         ...document.querySelectorAll(".options li:not(.hidden)"),
@@ -127,6 +132,7 @@ function handleKeyboardNavigation(event, details) {
     }
 }
 
+// Fonction qui gère le tri via le select
 function handleOptionClick(
     option,
     summary,
@@ -167,6 +173,7 @@ function handleOptionClick(
     });
 }
 
+//Fonction qui garde les deux bordures sur la deuxième option, même lorsque le tri est changé.
 function updateBorders() {
     const visibleOptions = [
         ...document.querySelectorAll(".options li:not(.hidden)"),

@@ -3,10 +3,12 @@ import { MediaFactory } from "../factories/mediaFactory";
 
 let numberOfLikes = 0;
 
+// Fonction qui remet numberOfLikes (compteur) à zéro.
 export function resetNumberOfLikes() {
     numberOfLikes = 0;
 }
 
+// Fonction qui génère la galerie des travaux du photographe séléctionné et gère l'affichage du carousel.
 export function renderGallery(media, photographerMedia, photographerProfils) {
     const workGallery = document.querySelector(".work-gallery");
     workGallery.innerHTML = "";
@@ -50,6 +52,7 @@ export function renderGallery(media, photographerMedia, photographerProfils) {
     });
 }
 
+// Fonction qui gère les likes
 export function handleLike(card, media, isLiked, photographerName) {
     const heart = card.querySelector(".card-heart");
 
@@ -86,10 +89,12 @@ export function handleLike(card, media, isLiked, photographerName) {
     }
 }
 
+// Fonction qui calcule le nombre total de likes d'un photogrpahe.
 function getTotalLikesCount(medias) {
     return medias.reduce((acc, currentValue) => acc + currentValue.likes, 0);
 }
 
+// Fonction qui gère l'ajout ou le retrait d'un like sur une carte
 function toggleLike(isLiked, currentLikes, currentTotalLikes) {
     if (!isLiked) {
         currentLikes++;
@@ -110,6 +115,8 @@ function toggleLike(isLiked, currentLikes, currentTotalLikes) {
         newTotalLikes: currentTotalLikes,
     };
 }
+
+// Fonction qui met à jour l'affichage du compteur total de likes
 function getTotalLikesDOM(photographerName, numberOfLikes) {
     const likesCounter = document.querySelector(".likes-stats");
     if (likesCounter) {
@@ -120,9 +127,9 @@ function getTotalLikesDOM(photographerName, numberOfLikes) {
         );
     }
 }
-function getLikesCardDOM(card, number) {
-    console.log(number);
 
+// Fonction qui mett à jour l'affichage du nombre de likes sur une carte.
+function getLikesCardDOM(card, number) {
     const cardLikeElement = card.querySelector(".number-likes");
     if (cardLikeElement) {
         cardLikeElement.textContent = number;

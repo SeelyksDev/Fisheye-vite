@@ -1,7 +1,9 @@
+// Fonction qui crée un carrousel dans une modal pour afficher les médias travaux du photographe
 export function modalCarouselTemplate(media, details, id) {
     const numberID = Number(id);
     let allMedias = [];
     
+    // Stocke les images et vidéos avec leur titre et ID
     media.forEach((el) => {
         if (el.image) {
             allMedias.push({ image: el.image, title: el.title, id: el.id });
@@ -13,16 +15,19 @@ export function modalCarouselTemplate(media, details, id) {
     let currentIndex = allMedias.findIndex(el => el.id === numberID);
     let lastFocusedElement;
 
+     // Affiche le média précédent dans le carrousel
     function previousMedia() {
         currentIndex = (currentIndex === 0) ? allMedias.length - 1 : currentIndex - 1;
         updateMedia();
     }
 
+    // Affiche le média suivant dans le carrousel
     function nextMedia() {
         currentIndex = (currentIndex + 1 === allMedias.length) ? 0 : currentIndex + 1;
         updateMedia();
     }
 
+    // Gère l'événement du clic et du clavier pour la flèche gauche
     function setupArrowLeft() {
         const arrowLeft = document.querySelector(".lightbox-arrow-left");
         arrowLeft.addEventListener("click", previousMedia);
@@ -34,6 +39,7 @@ export function modalCarouselTemplate(media, details, id) {
         });
     }
 
+    // Gère l'événement du clic et du clavier pour la flèche droite
     function setupArrowRight() {
         const arrowRight = document.querySelector(".lightbox-arrow-right");
         arrowRight.addEventListener("click", nextMedia);
@@ -45,6 +51,7 @@ export function modalCarouselTemplate(media, details, id) {
         });
     }
 
+    // Ferme le carrousel et rétablit l'accessibilité du reste de la page
     function closeCarousel() {
         document.body.style.overflow = "auto";
         const carouselModal = document.querySelector(".carousel-modal");
@@ -71,12 +78,14 @@ export function modalCarouselTemplate(media, details, id) {
         }
     }
 
+    // Gère la fermeture du carrousel avec la touche "Entrée"
     function handleEnterPress(event) {
         if (event.key === "Enter") {
             closeCarousel();
         }
     }
 
+    // Gère la navigation dans le carrousel avec le clavier
     function handleKeyDown(event) {
         if (event.key === "Escape") {
             closeCarousel();
@@ -89,6 +98,7 @@ export function modalCarouselTemplate(media, details, id) {
         }
     }
 
+    // Affiche et initialise le carrousel modal et désactive l'interaction avec le reste de la page
     function getCarouselDOM() {
         lastFocusedElement = document.activeElement;
         const carouselModal = document.querySelector(".carousel-modal");
@@ -128,6 +138,7 @@ export function modalCarouselTemplate(media, details, id) {
         updateMedia();
     }
 
+    // Met à jour l'affichage du média en cours dans le carrousel
     function updateMedia() {
         const mediaContainer = document.querySelector(".media-title");
         if (!mediaContainer) return;

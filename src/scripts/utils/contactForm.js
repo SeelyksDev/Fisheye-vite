@@ -1,19 +1,22 @@
 import { getPhotographerById } from "../pages/photographer.js";
 
+// Ferme la modal lorsque l'utilisateur appuie sur la touche "Échap"
 function handleKeyDownEscape(event) {
     if (event.key === "Escape") {
         closeModal();
     }
 }
 
+// Ferme la modal lorsque l'utilisateur appuie sur la touche "Entrée"
 function handleEnterPress(event) {
     if (event.key === "Enter") {
         closeModal();
     }
 }
 
-let lastFocusedElement;
+let lastFocusedElement; // Stocke l'élément qui avait le focus avant l'ouvertur
 
+// Affiche la modal de contact et désactive l'interaction avec le reste de la page
 export function displayModal() {
     lastFocusedElement = document.activeElement;
     document.body.style.overflow = "hidden";
@@ -39,6 +42,7 @@ export function displayModal() {
     main.setAttribute("inert", "");
 }
 
+// Ferme la modal de contact et restaure l'état initial en réactivant l'interaction avec la page et en retirant l'interaction avec la modal
 function closeModal() {
     document.body.style.overflow = "";
     document.body.style.height = "";
@@ -71,6 +75,7 @@ function closeModal() {
     }
 }
 
+// Récupère et affiche le nom du photographe dans la modal
 async function displayName() {
     const urlParams = new URLSearchParams(window.location.search);
     const photographerId = urlParams.get("id");
@@ -89,6 +94,7 @@ async function displayName() {
     }
 }
 
+// Gère la soumission du formulaire de contact
 function handleFormSubmit(event) {
     event.preventDefault();
     let isValid = true;
@@ -151,6 +157,7 @@ function handleFormSubmit(event) {
     }
 }
 
+// Réinitialise les valeurs des champs du formulaire
 function clearFormFields(firstname, name, email, message) {
     firstname.value = "";
     name.value = "";
@@ -158,6 +165,7 @@ function clearFormFields(firstname, name, email, message) {
     message.value = "";
 }
 
+// Efface les messages d'erreur et rétablit le style des champs
 function clearFormErrors(inputs, errors) {
     inputs.forEach((input) => (input.style.border = "none"));
     errors.forEach((error) => {
@@ -166,19 +174,23 @@ function clearFormErrors(inputs, errors) {
     });
 }
 
+// Vérifie que le nom ou prénom contient uniquement des lettres et a au moins 2 caractères
 function validateName(value) {
     return value.length >= 2 && /^[A-Za-z\s]+$/.test(value);
 }
 
+// Vérifie que l'email est valide avec un format standard
 function validateEmail(value) {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(value);
 }
 
+// Vérifie que le message contient au moins 10 caractères
 function validateMessage(value) {
     return value.length >= 10;
 }
 
+// Affiche un message d'erreur sous un champ du formulaire
 function showError(input, errorElement, message) {
     errorElement.textContent = message;
     errorElement.style.display = "flex";
