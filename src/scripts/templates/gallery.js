@@ -77,13 +77,16 @@ export function handleLike(card, media, isLiked, photographerName) {
             if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
                 event.stopPropagation();
-                const { newLikes, newStatus } = toggleLike(
+                const { newLikes, newStatus, newTotalLikes } = toggleLike(
                     isLiked,
-                    media.likes
+                    media.likes,
+                    numberOfLikes
                 );
                 media.likes = newLikes;
                 isLiked = newStatus;
+                numberOfLikes = newTotalLikes;
                 getLikesCardDOM(card, newLikes);
+                getTotalLikesDOM(photographerName, newTotalLikes);
             }
         });
     }
