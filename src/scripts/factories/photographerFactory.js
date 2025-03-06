@@ -48,7 +48,7 @@ export function PhotographerFactory(data) {
                 <button class="contact_button" aria-haspopup="dialog" aria-label="Ouvrir le formulaire de contact">Contactez-moi</button>
                 <img class="photograph-img" src="./assets/photographers/${
                     this.portrait ? this.portrait : "account.png"
-                }" alt="" aria-label="Photo de ${this.name}"></img>
+                }" alt="Photo de ${this.name}" aria-label="Photo de ${this.name}"></img>
             `;
 
         const pricePerDay = document.querySelector(".price-per-day");

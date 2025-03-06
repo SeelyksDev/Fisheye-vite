@@ -28,7 +28,7 @@ export function MediaFactory(photographerName, media) {
         card.innerHTML = `
             ${
                 this.image
-                    ? `<img src="assets/images/${this.name}/${this.image}" alt="" class="card-media">`
+                    ? `<img src="assets/images/${this.name}/${this.image}" alt="${this.image}" class="card-media">`
                     : ""
             }
             ${
