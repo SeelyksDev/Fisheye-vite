@@ -170,6 +170,13 @@ function handleOptionClick(
         }
         renderGallery(sortedMedia, photographerMedia, photographerProfils);
         updateBorders();
+
+        setTimeout(() => {
+            const firstCard = document.querySelector(".work-card");
+            if (firstCard) {    
+                firstCard.focus();
+            }
+        }, 100);
     });
 }
 

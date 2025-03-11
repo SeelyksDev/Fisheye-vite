@@ -14,7 +14,7 @@ function handleEnterPress(event) {
     }
 }
 
-let lastFocusedElement; // Stocke l'élément qui avait le focus avant l'ouvertur
+let lastFocusedElement; // Stocke l'élément qui avait le focus avant l'ouverture
 
 // Affiche la modal de contact et désactive l'interaction avec le reste de la page
 export function displayModal() {
@@ -154,6 +154,7 @@ function handleFormSubmit(event) {
     if (isValid) {
         console.log({ firstnameInput, nameInput, emailInput, messageInput });
         clearFormFields(firstname, name, email, message);
+        closeModal();
     }
 }
 

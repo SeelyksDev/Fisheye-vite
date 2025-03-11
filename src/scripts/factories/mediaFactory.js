@@ -11,7 +11,7 @@ export function MediaFactory(photographerName, media) {
     this.isLiked = false;
 
     // Méthode pour ajouter des cards dans la gallerie
-    this.getGalleryDOM = () => {
+    function getGalleryDOM () {
         const workGallery = document.querySelector(".work-gallery");
         workGallery.setAttribute(
             "aria-label",
@@ -51,9 +51,21 @@ export function MediaFactory(photographerName, media) {
             <span id="info-carousel" hidden>Ouvre une modale contenant un carrousel.</span>
         `;
 
-        workGallery.appendChild(card);
-
         // Gestion des likes 
         handleLike(card, media, this.isLiked, photographerName);
+        
+        return card
+    };
+
+    return {
+        id: this.id,
+        photographerId: this.photographerId,
+        name: this.name,
+        title: this.title,
+        image: this.image,
+        video: this.video,
+        likes: this.likes,
+        isLiked: this.isLiked,
+        getGalleryDOM
     };
 }

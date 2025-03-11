@@ -10,26 +10,26 @@ export function PhotographerFactory(data) {
     this.portrait = data.portrait;
 
     // Méthode pour génerer les cards de la homepage
-    this.getPhotographerPreviewDOM = () => {
+    function getPhotographerPreviewDOM() {
         const article = document.createElement("article");
         article.innerHTML = `
-            <a href="./photographer.html?id=${this.id}">
-                <img src="assets/photographers/${this.portrait}" alt="Photo de ${this.name}" />
-                <h2>${this.name}</h2>
-                <p class="overview-location">${this.city}, ${this.country}</p>
-                <p class="overview-description">${this.tagline}</p>
-                <p class="overview-price">${this.price}€/jour</p>
+            <a href="./photographer.html?id=${this.id}" aria-label="Profil de ${this.name}">
+                <img src="assets/photographers/${this.portrait}" alt="Photo de ${this.name}" tabIndex=0 />
+                <h2 tabIndex=0>${this.name}</h2>
+                <p class="overview-location" tabIndex=0>${this.city}, ${this.country}</p>
+                <p class="overview-description" tabIndex=0>${this.tagline}</p>
+                <p class="overview-price" tabIndex=0 aria-label="${this.price} euros par jour">${this.price}€/jour</p>
             </a>
         `;
         return article;
-    };
+    }
 
     // Méthode pour générer les informations du photographe dans la page individuelle d'un photographe
-    this.getPhotographerProfilDOM = () => {
+    function getPhotographerProfilDOM() {
         const photographHeader = document.querySelector(".photograph-header");
 
         photographHeader.innerHTML = `
-                <div class="photograph-header-informations">
+                <div class="photograph-header-informations" tabIndex=0>
                     <h1 class="photograph-name" aria-label="${this.name}.">${
             this.name
         }</h1>
@@ -48,13 +48,25 @@ export function PhotographerFactory(data) {
                 <button class="contact_button" aria-haspopup="dialog" aria-label="Ouvrir le formulaire de contact">Contactez-moi</button>
                 <img class="photograph-img" src="./assets/photographers/${
                     this.portrait ? this.portrait : "account.png"
-                }" alt="Photo de ${this.name}" aria-label="Photo de ${this.name}"></img>
+                }" alt="Photo de profil de ${this.name}" tabIndex=0></img>
             `;
 
         const pricePerDay = document.querySelector(".price-per-day");
-        pricePerDay.innerHTML = `<p class="price" aria-label="${this.price}€ par jour">${this.price}€ / jour</p>`;
+        pricePerDay.innerHTML = `<p class="price" tabIndex=0 aria-label="Son tarif est de ${this.price}€ par jour">${this.price}€ / jour</p>`;
 
         const contactButton = document.querySelector(".contact_button");
         contactButton.addEventListener("click", displayModal);
+    }
+
+    return {
+        id: this.id,
+        name: this.name,
+        city: this.city,
+        country: this.country,
+        tagline: this.tagline,
+        price: this.price,
+        portrait: this.portrait,
+        getPhotographerPreviewDOM,
+        getPhotographerProfilDOM,
     };
 }

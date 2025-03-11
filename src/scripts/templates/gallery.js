@@ -24,7 +24,8 @@ export function renderGallery(media, photographerMedia, photographerProfils) {
             photographerProfils.name,
             photographMedia
         );
-        galleryTemplate.getGalleryDOM();
+        const userCardDOM = galleryTemplate.getGalleryDOM();
+        workGallery.appendChild(userCardDOM);
     });
 
     const workCards = document.querySelectorAll(".work-card");
@@ -128,6 +129,7 @@ function getTotalLikesDOM(photographerName, numberOfLikes) {
             "aria-label",
             `Les travaux de ${photographerName} comptabilisent ${numberOfLikes} likes au total`
         );
+        likesCounter.setAttribute("tabIndex", "0");
     }
 }
 

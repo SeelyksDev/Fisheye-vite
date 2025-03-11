@@ -2,7 +2,7 @@
 export function modalCarouselTemplate(media, details, id) {
     const numberID = Number(id);
     let allMedias = [];
-    
+
     // Stocke les images et vidéos avec leur titre et ID
     media.forEach((el) => {
         if (el.image) {
@@ -12,18 +12,20 @@ export function modalCarouselTemplate(media, details, id) {
         }
     });
 
-    let currentIndex = allMedias.findIndex(el => el.id === numberID);
+    let currentIndex = allMedias.findIndex((el) => el.id === numberID);
     let lastFocusedElement;
 
-     // Affiche le média précédent dans le carrousel
+    // Affiche le média précédent dans le carrousel
     function previousMedia() {
-        currentIndex = (currentIndex === 0) ? allMedias.length - 1 : currentIndex - 1;
+        currentIndex =
+            currentIndex === 0 ? allMedias.length - 1 : currentIndex - 1;
         updateMedia();
     }
 
     // Affiche le média suivant dans le carrousel
     function nextMedia() {
-        currentIndex = (currentIndex + 1 === allMedias.length) ? 0 : currentIndex + 1;
+        currentIndex =
+            currentIndex + 1 === allMedias.length ? 0 : currentIndex + 1;
         updateMedia();
     }
 
@@ -57,15 +59,21 @@ export function modalCarouselTemplate(media, details, id) {
         const carouselModal = document.querySelector(".carousel-modal");
         const headerPhotograph = document.querySelector(".header-photograph");
         const main = document.getElementById("main");
+        const pricePerDay = document.querySelector(".price-per-day");
+        const likesCounter = document.querySelector(".likes-stats");
 
         carouselModal.style.display = "none";
         carouselModal.innerHTML = "";
-        carouselModal.setAttribute('aria-hidden', "true");
+        carouselModal.setAttribute("aria-hidden", "true");
 
         headerPhotograph.setAttribute("aria-hidden", "false");
         headerPhotograph.removeAttribute("inert");
         main.setAttribute("aria-hidden", "false");
         main.removeAttribute("inert");
+        pricePerDay.setAttribute("aria-hidden", "false");
+        likesCounter.setAttribute("aria-hidden", "false");
+        pricePerDay.removeAttribute("inert");
+        likesCounter.removeAttribute("inert");
 
         window.removeEventListener("keydown", handleKeyDown);
         const lightboxCross = document.querySelector(".lightbox-cross");
@@ -104,12 +112,14 @@ export function modalCarouselTemplate(media, details, id) {
         const carouselModal = document.querySelector(".carousel-modal");
         const headerPhotograph = document.querySelector(".header-photograph");
         const main = document.getElementById("main");
+        const pricePerDay = document.querySelector(".price-per-day");
+        const likesCounter = document.querySelector(".likes-stats");
 
-        carouselModal.setAttribute('aria-hidden', "false");
+        carouselModal.setAttribute("aria-hidden", "false");
         window.scrollTo({ top: 0 });
         carouselModal.style.display = "block";
         document.body.style.overflow = "hidden";
-        
+
         carouselModal.innerHTML = `
             <div class="lightbox">
                 <div class="arrow-image">
@@ -121,11 +131,15 @@ export function modalCarouselTemplate(media, details, id) {
             </div>
         `;
 
-        document.querySelector('.lightbox-cross').focus();
+        document.querySelector(".lightbox-cross").focus();
         headerPhotograph.setAttribute("aria-hidden", "true");
         headerPhotograph.setAttribute("inert", "");
         main.setAttribute("aria-hidden", "true");
         main.setAttribute("inert", "");
+        pricePerDay.setAttribute("aria-hidden", "true");
+        likesCounter.setAttribute("aria-hidden", "true");
+        pricePerDay.setAttribute("inert", "");
+        likesCounter.setAttribute("inert", "");
 
         setupArrowLeft();
         setupArrowRight();
@@ -142,11 +156,21 @@ export function modalCarouselTemplate(media, details, id) {
     function updateMedia() {
         const mediaContainer = document.querySelector(".media-title");
         if (!mediaContainer) return;
-        
+
         mediaContainer.innerHTML = `
-            ${allMedias[currentIndex].image ? `<img class="lightbox-media" src="assets/images/${details.name}/${allMedias[currentIndex].image}" alt="${allMedias[currentIndex].title}" />` : ""}
-            ${allMedias[currentIndex].video ? `<video controls class="lightbox-media"><source src="assets/images/${details.name}/${allMedias[currentIndex].video}" type="video/mp4"/></video>` : ""}
-            <h4 class="lightbox-title">${allMedias[currentIndex].title}</h4>
+            ${
+                allMedias[currentIndex].image
+                    ? `<img class="lightbox-media" src="assets/images/${details.name}/${allMedias[currentIndex].image}" alt="${allMedias[currentIndex].title}" tabIndex=0 />`
+                    : ""
+            }
+            ${
+                allMedias[currentIndex].video
+                    ? `<video controls class="lightbox-media" aria-label="${allMedias[currentIndex].title}"><source src="assets/images/${details.name}/${allMedias[currentIndex].video}" type="video/mp4"/></video>`
+                    : ""
+            }
+            <h4 class="lightbox-title" tabIndex=0>${
+                allMedias[currentIndex].title
+            }</h4>
         `;
     }
 
