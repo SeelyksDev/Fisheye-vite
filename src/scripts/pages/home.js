@@ -5,7 +5,7 @@ import { PhotographerFactory } from "../factories/photographerFactory.js";
 // Pour le moment la data se trouve dans un fichier JSON.
 // Elle retourne soit les données soit une erreur.
 export async function getPhotographers() {
-    const url = "/src/data/photographers.json";
+    const url = "/Fisheye-vite/photographers.json";
     try {
         const response = await fetch(url);
         if (!response.ok) {

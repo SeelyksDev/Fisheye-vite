@@ -1,3 +1,13 @@
-export default {
-    base: "/Fisheye-vite/",
-  };
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  base: "./",
+  build: {
+    rollupOptions: {
+      input: {
+        main: "index.html",
+        photographer: "photographer.html"
+      }
+    }
+  }
+})

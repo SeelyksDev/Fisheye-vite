@@ -123,10 +123,10 @@ export function modalCarouselTemplate(media, details, id) {
         carouselModal.innerHTML = `
             <div class="lightbox">
                 <div class="arrow-image">
-                    <img class="lightbox-cross" tabIndex="0" src="/assets/icons/red-cross.svg" alt="" aria-label="Bouton pour fermer le carrousel" />
-                    <img class="lightbox-arrow-left lightbox-arrow" tabIndex="0" src="/assets/icons/red-arrow-left.svg" alt="" aria-label="Média précédant" />
+                    <img class="lightbox-cross" tabIndex="0" src="./assets/icons/red-cross.svg" alt="" aria-label="Bouton pour fermer le carrousel" />
+                    <img class="lightbox-arrow-left lightbox-arrow" tabIndex="0" src="./assets/icons/red-arrow-left.svg" alt="" aria-label="Média précédant" />
                     <div class="media-title"></div>
-                    <img class="lightbox-arrow-right lightbox-arrow" tabIndex="0" src="/assets/icons/red-right-arrow.svg" alt="" aria-label="Média suivant" />
+                    <img class="lightbox-arrow-right lightbox-arrow" tabIndex="0" src="./assets/icons/red-right-arrow.svg" alt="" aria-label="Média suivant" />
                 </div>
             </div>
         `;
