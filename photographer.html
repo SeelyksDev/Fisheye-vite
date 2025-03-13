@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <link href="css/style.css" rel="stylesheet" type="text/css" />
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/png" href="assets/favicon.png" />
+        <link
+            href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
+            rel="stylesheet"
+        />
+        <title>Fisheye - photographe</title>
+      <script type="module" crossorigin src="/Fisheye-vite/assets/home-BuJgmKQM.js"></script>
+      <link rel="stylesheet" crossorigin href="/Fisheye-vite/assets/home-BoeDx7pd.css">
+    </head>
+    <body>
+        <header class="header-photograph header">
+            <a href="/index.html" title="Retour à la page d'accueil" class="logo-link" tabindex="0">
+                <img
+                    src="assets/images/logo.png"
+                    class="logo"
+                    alt="logo de fisheye"
+                    aria-label="Bouton pour retourner à la page d'accueil"
+                />
+            </a>
+        </header>
+        <main id="main">
+            <section class="photograph-header"></section>
+            <form class="form-select">
+                <label for="select" class="label-select">Trier par</label>
+
+                <details class="custom-select">
+                    <summary class="select-btn">
+                        <span class="select-title" data-value="popularity"
+                        aria-label="Bouton pour trier la galerie">Popularité</span
+                        >
+                        <img
+                            src="assets/icons/arrow-down.svg"
+                            class="select-arrow"
+                            alt="flèche vers le bas"
+                            aria-hidden="true"
+                        />
+                    </summary>
+                    <ul class="options">
+                        <li data-value="popularity" tabindex="0" aria-label="Trier par popularité">Popularité</li>
+                        <li data-value="date" tabindex="0" aria-label="Trier par date">Date</li>
+                        <li data-value="title" tabindex="0" aria-label="Trier par titre">Titre</li>     
+                    </ul>
+                </details>
+            </form>
+            <section class="work-gallery"></section>
+        </main>
+        <div class="background-modal"></div>
+        <dialog id="contact_modal" role="dialog" aria-hidden="true">
+            <div class="modal">
+                <header class="modal-header">
+                    <h2 class="modal-title">Contactez-moi</h2>
+                    <img
+                        src="assets/icons/close.svg"
+                        alt="croix"
+                        aria-label="Bouton pour fermer la modal"
+                        class="close_modal_form"
+                    />
+                </header>
+                <form class="modal-form">
+                    <div class="input-container">
+                        <label for="firstname">Prénom</label>
+                        <input
+                            type="text"
+                            id="firstname"
+                            aria-required="true"
+                        />
+                        <span
+                            class="error-message"
+                            id="firstnameError"
+                            aria-live="assertive"
+                        ></span>
+
+                        <label for="name">Nom</label>
+                        <input type="text" id="name" aria-required="true" />
+                        <span
+                            class="error-message"
+                            id="nameError"
+                            aria-live="assertive"
+                        ></span>
+
+                        <label for="email">Email</label>
+                        <input type="email" id="email" aria-required="true" />
+                        <span
+                            class="error-message"
+                            id="emailError"
+                            aria-live="assertive"
+                        ></span>
+
+                        <label for="message">Votre message</label>
+                        <input type="text" id="message" aria-required="true" />
+                        <span
+                            class="error-message"
+                            id="messageError"
+                            aria-live="assertive"
+                        ></span>
+                    </div>
+                    <button
+                        class="send_btn_form"
+                        aria-label="Envoyer les informations"
+                        type="submit"
+                    >
+                        Envoyer
+                    </button>
+                </form>
+            </div>
+        </dialog>
+        <dialog
+            class="carousel-modal"
+            role="dialog"
+            aria-hidden="true"
+        ></dialog>
+        <div id="status-message" aria-live="polite" style="position: absolute; left: -9999px;"></div>
+        <div class="likes-price">
+            <div class="likes">
+                <p class="likes-stats"></p>
+                <img
+                    src="./assets/icons/black-heart.svg"
+                    alt="coeur"
+                    class="likes-heart"
+                />
+            </div>
+            <div class="price-per-day"></div>
+        </div>
+    </body>
+</html>
