@@ -1,5 +1,6 @@
 //Mettre le code JavaScript lié à la page photographer.html
 import "../../css/photographer.css";
+import { displayModal } from "../utils/contactForm.js";
 import { getPhotographers } from "./home.js";
 import { PhotographerFactory } from "../factories/photographerFactory.js";
 import { renderGallery } from "../templates/gallery.js";
@@ -27,11 +28,18 @@ async function displayPhotographerDetails(id) {
         const { photographerProfils } = await getPhotographerById(id);
 
         if (photographerProfils) {
-            const photographerProfilTemplate = new PhotographerFactory(
+            const photographHeader =
+                document.querySelector(".photograph-header");
+
+            const photographerTemplate = new PhotographerFactory(
                 photographerProfils
             );
+            const templatePhotographer =
+                photographerTemplate.getPhotographerProfilDOM();
+            photographHeader.innerHTML = templatePhotographer;
 
-            return photographerProfilTemplate.getPhotographerProfilDOM();
+            const contactButton = document.querySelector(".contact_button");
+            contactButton.addEventListener("click", displayModal);
         }
     }
 }
@@ -173,7 +181,7 @@ function handleOptionClick(
 
         setTimeout(() => {
             const firstCard = document.querySelector(".work-card");
-            if (firstCard) {    
+            if (firstCard) {
                 firstCard.focus();
             }
         }, 100);

@@ -1,5 +1,3 @@
-import { displayModal } from "../utils/contactForm.js";
-
 export function PhotographerFactory(data) {
     this.name = data.name;
     this.id = data.id;
@@ -26,9 +24,7 @@ export function PhotographerFactory(data) {
 
     // Méthode pour générer les informations du photographe dans la page individuelle d'un photographe
     function getPhotographerProfilDOM() {
-        const photographHeader = document.querySelector(".photograph-header");
-
-        photographHeader.innerHTML = `
+        const template = `
                 <div class="photograph-header-informations" tabIndex=0>
                     <h1 class="photograph-name" aria-label="${this.name}.">${
             this.name
@@ -54,8 +50,7 @@ export function PhotographerFactory(data) {
         const pricePerDay = document.querySelector(".price-per-day");
         pricePerDay.innerHTML = `<p class="price" tabIndex=0 aria-label="Son tarif est de ${this.price}€ par jour">${this.price}€ / jour</p>`;
 
-        const contactButton = document.querySelector(".contact_button");
-        contactButton.addEventListener("click", displayModal);
+        return template;
     }
 
     return {
