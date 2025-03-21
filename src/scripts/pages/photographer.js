@@ -1,6 +1,6 @@
 //Mettre le code JavaScript lié à la page photographer.html
 import "../../css/photographer.css";
-import { displayModal } from "../utils/contactForm.js";
+import { displayModal } from "../templates/contactForm.js";
 import { getPhotographers } from "./home.js";
 import { PhotographerFactory } from "../factories/photographerFactory.js";
 import { renderGallery } from "../templates/gallery.js";
