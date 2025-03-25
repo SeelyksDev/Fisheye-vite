@@ -28,19 +28,19 @@ export function MediaFactory(photographerName, media) {
         card.innerHTML = `
             ${
                 this.image
-                    ? `<img src="assets/images/${this.name}/${this.image}" alt="${this.image}" class="card-media">`
+                    ? `<img src="assets/images/${this.name}/${this.image}" alt="${this.title}" class="card-media">`
                     : ""
             }
             ${
                 this.video
                     ? `
-                <video class="card-media">
+                <video class="card-media" aria-label="${this.title}">
                     <source src="assets/images/${this.name}/${this.video}" type="video/mp4" />
                 </video>`
                     : ""
             }
             <div class="card-description">
-                <p class="card-title">${this.title}</p>
+                <p class="card-title" aria-hidden="true">${this.title}</p>
                 <div class="card-likes-stats">
                     <p class="number-likes" aria-label="${this.likes} likes">${
             this.likes

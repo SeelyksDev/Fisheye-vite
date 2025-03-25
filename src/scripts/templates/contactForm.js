@@ -26,6 +26,7 @@ export function displayModal() {
     const closeModalForm = document.querySelector(".close_modal_form");
     const headerPhotograph = document.querySelector(".header-photograph");
     const main = document.getElementById("main");
+    const likesPrice = document.querySelector(".likes-price");
 
     modal.style.display = "block";
     modal.setAttribute("aria-hidden", "false");
@@ -40,6 +41,7 @@ export function displayModal() {
     headerPhotograph.setAttribute("inert", "");
     main.setAttribute("aria-hidden", "true");
     main.setAttribute("inert", "");
+    likesPrice.setAttribute("inert", "");
 }
 
 // Ferme la modal de contact et restaure l'état initial en réactivant l'interaction avec la page et en retirant l'interaction avec la modal
@@ -51,6 +53,7 @@ function closeModal() {
     const closeModalForm = document.querySelector(".close_modal_form");
     const headerPhotograph = document.querySelector(".header-photograph");
     const main = document.getElementById("main");
+    const likesPrice = document.querySelector(".likes-price");
     modal.style.display = "none";
     modal.setAttribute("aria-hidden", "true");
     backgroundTransparent.style.display = "none";
@@ -61,6 +64,7 @@ function closeModal() {
     headerPhotograph.removeAttribute("inert");
     main.removeAttribute("aria-hidden");
     main.removeAttribute("inert");
+    likesPrice.removeAttribute("inert");
     document.getElementById("firstnameError").style.display = "none";
     document.getElementById("nameError").style.display = "none";
     document.getElementById("emailError").style.display = "none";
