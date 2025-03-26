@@ -10,6 +10,7 @@ function handleKeyDownEscape(event) {
 // Ferme la modal lorsque l'utilisateur appuie sur la touche "Entrée"
 function handleEnterPress(event) {
     if (event.key === "Enter") {
+        event.preventDefault();
         closeModal();
     }
 }
